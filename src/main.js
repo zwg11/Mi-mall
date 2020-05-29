@@ -5,7 +5,7 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-const mock = true
+const mock = false
 if(mock){
   require('./mock/api')
 }

@@ -20,13 +20,7 @@ export default {
     }
   },
   mounted(){
-    this.axios.get('/user/login').then(res=>{
-      console.log(res);
-      
-    }).catch(function(err){
-      console.log(err);
-      
-    })
+    
   }
 }
 </script>
