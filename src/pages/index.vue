@@ -100,7 +100,29 @@
           <a :href="'/#/products/'+banner.id">
           <img :src="banner.img" alt=""></a>
         </div>
-        <div class="product-box"></div>
+        <div class="product-box">
+          <h2>手机</h2>
+          <div class="wrapper">
+            <div class="banner-left">
+              <a href="/#/products/35"><img src="/imgs/mix-alpha.jpg" alt=""></a>
+            </div>
+            <div class="list-box">
+              <div class="list" v-for="(arr,ind) in phoneList" :key="ind">
+                <div class="item" v-for="(item,index) in arr" :key="index">
+                  <span>新品</span>
+                  <div class="item-img">
+                    <img src="" alt="">
+                  </div>
+                  <div class="item-info">
+                    <h3>小米9</h3>
+                    <p>骁龙855，索尼4800万超广角聚焦</p>
+                    <p>2999</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <service-bar></service-bar>
@@ -182,13 +204,15 @@ export default {
       banner:{
         id:55,
         img: 'imgs/banner-1.png'
-      }
+      },
+      phoneList:[[1,1,1,1],[1,1,1,1]]
     };
   }
 };
 </script>
 <style lang="scss" scoped>
 @import "./../assets/scss/mixin.scss";
+@import "./../assets/scss/config.scss";
 .index {
   .swiper-box {
     position: relative;
@@ -196,7 +220,7 @@ export default {
       position: absolute;
       width: 264px;
       height: 451px;
-      z-index: 10;
+      z-index: 5;
       padding: 26px 0;
       background-color: #55585a7a;
       box-sizing: border-box;
@@ -286,7 +310,7 @@ export default {
       display: flex;
       width: 100%;
       justify-content: space-between;
-      margin-top: 40px;
+      margin-top: 14px;
       a{
         width: 24%;
         img{
@@ -297,13 +321,71 @@ export default {
       }
     }
     .banner{
-      margin-top: 40px;
+      margin: 30px 0;
       a{
         display: block;
         width: 100%;
         img{
           width: 100%;
           height: auto;
+        }
+      }
+    }
+    .product-box{
+      padding: 30px 0 50px;
+      background-color: $colorJ;
+      h2{
+        font-size: $fontF;
+        height: 21px;
+        line-height: 21px;
+        color:$colorB;
+      }
+      .wrapper{
+        display: flex;
+        .banner-left{
+          margin-right: 16px;
+          img{
+            width: 224px;
+            height: 619px;
+          }
+        }
+        .list-box{
+          .list{
+            @include flex();
+            width: 986px;
+            margin-bottom: 14px;
+            &:last-child{
+              margin-bottom: 0;
+            }
+            .item{
+              width: 236px;
+              height: 302px;
+              background-color: $colorG;
+              text-align: center;
+              span{
+
+              }
+              .item-img{
+                img{
+                  height: 195px;
+                }
+              }
+              .item-info{
+                h3{
+                  font-size: $fontJ;
+                  color: $colorB;
+                  line-height: $fontJ;
+                  font-weight: bold;
+                  
+                }
+                p{
+                  color: $colorD;
+                  line-height: 13px;
+                  margin: 6px auto 13px;
+                }
+              }
+            }
+          }
         }
       }
     }
