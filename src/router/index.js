@@ -8,6 +8,8 @@ import Detail from '@/pages/detail'
 
 import Cart from '@/pages/cart'
 
+import Login from '@/pages/login'
+
 import Order from '@/pages/order'
 import OrderList from '@/pages/orderList'
 import OrderConfirm from '@/pages/orderConfirm'
@@ -50,6 +52,11 @@ Vue.use(VueRouter)
     path: '/cart',
     name: 'cart',
     component: Cart,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
   },
   {
     path: '/order',

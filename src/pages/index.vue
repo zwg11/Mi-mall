@@ -84,7 +84,7 @@
         <swiper :options="swiperOption">
           <swiper-slide v-for="item in slideList" :key="item.id">
             <a :href="'/#/product/'+item.id">
-              <img :src="item.img" alt />
+              <img v-lazy="item.img" alt />
             </a>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
@@ -93,7 +93,7 @@
         </swiper>
         <div class="ads-box">
           <a :href="'/#/products/'+item.id" v-for="(item,index) in adsList" :key="index">
-            <img :src="item.img" alt="">
+            <img v-lazy="item.img" alt="">
           </a>
         </div>
         <div class="banner">
@@ -104,7 +104,7 @@
           <h2>手机</h2>
           <div class="wrapper">
             <div class="banner-left">
-              <a href="/#/products/35"><img src="/imgs/mix-alpha.jpg" alt=""></a>
+              <a href="/#/products/35"><img v-lazy="'/imgs/mix-alpha.jpg'" alt=""></a>
             </div>
             <div class="list-box">
               <div class="list" v-for="(arr,ind) in phoneList" :key="ind">

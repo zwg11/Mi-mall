@@ -9,10 +9,12 @@
           <a href="javascript:;">协议规则</a>
         </div>
         <div class="topbar-user">
-          <a href="javascript:;">登录</a>
-          <a href="javascript:;">注册</a>
+          <a href="javascript:;" v-if="isLogin">{{username}}</a>
+          <a href="javascript:;" v-if="!isLogin" @click="userLogin">登录</a>
+          <a href="javascript:;" v-if="isLogin" @click="userLogout">退出</a>
+          <a href="/#/order/list" v-if="isLogin">我的订单</a>
           <a href="javascript:;" class="my-cart">
-            <span class="icon-cart"></span>购物车
+            <span class="icon-cart"></span>购物车({{cartCount}})
           </a>
         </div>
       </div>
@@ -75,8 +77,10 @@ export default {
   name: "nav-header",
   data() {
     return {
-      username: "jack",
+      username: "",
+      isLogin: false,
       phoneList: [],
+      cartCount: 0,
       tvList:[
           {
               id:111,
@@ -130,9 +134,28 @@ export default {
     }
   },
   mounted() {
+    
     this.getProductList();
+    this.username = this.$store.getters.getUsername || '登录'
+    this.isLogin = this.$store.state.isLogin
+    
+  },
+  watch:{
+
   },
   methods: {
+    userLogin(){
+      if(this.$store.state.isLogin === false){
+        this.login()
+      }
+    },
+    userLogout(){
+      if(this.isLogin){
+        this.isLogin = false;
+        this.username = '登录'
+        this.$store.commit('userLogout')
+      }
+    },
     login() {
       this.$router.push("/login");
     },
@@ -182,9 +205,9 @@ export default {
           @include bgImg(
             $img: "/imgs/icon-cart-checked.png",
             $w: 16px,
-            $h: 12pxs
+            $h: 12px
           );
-          margin-right: 5px;
+          margin-right: 10px;
         }
       }
     }
