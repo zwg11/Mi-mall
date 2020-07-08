@@ -1,10 +1,13 @@
 export default{
-  userLogin(state, payload){
+  userLogin(state, username){
     state.isLogin = true;
-    state.username = payload.username
+    state.username = username
   },
   userLogout(state){
     state.isLogin = false;
     state.username = ''
+  },
+  saveCartCount(state,count){
+    state.cartCount = count
   }
 }

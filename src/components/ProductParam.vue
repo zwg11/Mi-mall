@@ -83,14 +83,14 @@ export default {
             color: black;
             margin: 0 15px;
           }
-          .btn{
+          .btn-large{
             background-color: #ff6600;
             border: none;
             border-radius: 3px;
             color: #ffffff;
             padding: 5px 25px;
             margin-left: 15px;
-            font-size: 15px;
+            // font-size: 15px;
             cursor: pointer;
           }
       }

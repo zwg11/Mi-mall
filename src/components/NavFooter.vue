@@ -21,9 +21,12 @@ export default {
     name:'nav-footer'
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 @import "./../assets/scss/config.scss";
     .footer{
+        // position: absolute;
+        width: 100%;
+        bottom: 0;
         height:234px;
         border-top: 4px solid $colorA;
         background-color: $colorB;

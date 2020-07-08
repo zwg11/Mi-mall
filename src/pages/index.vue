@@ -100,36 +100,28 @@
           <a :href="'/#/products/'+banner.id">
           <img :src="banner.img" alt=""></a>
         </div>
-        <div class="product-box">
-          <h2>手机</h2>
-          <div class="wrapper">
-            <div class="banner-left">
-              <a href="/#/products/35"><img v-lazy="'/imgs/mix-alpha.jpg'" alt=""></a>
-            </div>
-            <div class="list-box">
-              <div class="list" v-for="(arr,ind) in phoneList" :key="ind">
-                <div class="item" v-for="(item,index) in arr" :key="index">
-                  <span>新品</span>
-                  <div class="item-img">
-                    <img src="" alt="">
-                  </div>
-                  <div class="item-info">
-                    <h3>小米9</h3>
-                    <p>骁龙855，索尼4800万超广角聚焦</p>
-                    <p>2999</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-    <service-bar></service-bar>
+    <product-box :phoneList = 'phoneList' @showModal='showModal'></product-box>
+    <service-bar @hook:updated="console.log()"></service-bar>
+    <modal title="提示" 
+    sureText='查看购物车'
+    btnType='1'
+    modalType='middle'
+    :isShow='isShowModal'
+    @goCart='goCart'
+    @cancel='isShowModal=false'
+    >
+      <template v-slot:body>
+        <p>商品添加成功!</p>
+      </template>
+    </modal>
   </div>
 </template>
 <script>
 import ServiceBar from "@/components/ServiceBar.vue";
+import ProductBox from "@/components/ProductBox.vue"
+import Modal from "@/components/Modal.vue"
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 
@@ -138,7 +130,9 @@ export default {
   components: {
     ServiceBar,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    ProductBox,
+    Modal
   },
   data() {
     return {
@@ -205,8 +199,33 @@ export default {
         id:55,
         img: 'imgs/banner-1.png'
       },
-      phoneList:[[1,1,1,1],[1,1,1,1]]
+      phoneList:[],
+      isShowModal:false
     };
+  },
+  mounted(){
+    this.init()
+  },
+  methods:{
+    init(){
+      this.axios.get('/products',{
+        params:{
+          categoryId:100012,
+          pageSize:14
+        }
+      }).then(res=>{
+        res.list = res.list.slice(6,14);
+        this.phoneList = [res.list.slice(0,4),res.list.slice(4,8)];
+      })
+    },
+    showModal(){
+      console.log('show modal');
+      
+      this.isShowModal = true
+    },
+    goCart(){
+      this.$router.push('/cart');
+    }
   }
 };
 </script>
@@ -253,13 +272,13 @@ export default {
             display: none;
             height: 451px;
             width: 450px;
-            // display: flex;
             flex-direction: column;
             justify-content: start;
             flex-wrap: wrap;
             background-color: white;
             padding-top: 10px;
             box-sizing: border-box;
+            box-shadow:0 4px 8px rgba(0,0,0,.18);
             .item{
               margin-left: 15px;
               z-index: 1;
@@ -289,6 +308,7 @@ export default {
             background-color: #FF6600;
             .children{
               display: flex;
+              flex-direction: column;
             }
           }
 
@@ -330,65 +350,7 @@ export default {
           height: auto;
         }
       }
-    }
-    .product-box{
-      padding: 30px 0 50px;
-      background-color: $colorJ;
-      h2{
-        font-size: $fontF;
-        height: 21px;
-        line-height: 21px;
-        color:$colorB;
-      }
-      .wrapper{
-        display: flex;
-        .banner-left{
-          margin-right: 16px;
-          img{
-            width: 224px;
-            height: 619px;
-          }
-        }
-        .list-box{
-          .list{
-            @include flex();
-            width: 986px;
-            margin-bottom: 14px;
-            &:last-child{
-              margin-bottom: 0;
-            }
-            .item{
-              width: 236px;
-              height: 302px;
-              background-color: $colorG;
-              text-align: center;
-              span{
-
-              }
-              .item-img{
-                img{
-                  height: 195px;
-                }
-              }
-              .item-info{
-                h3{
-                  font-size: $fontJ;
-                  color: $colorB;
-                  line-height: $fontJ;
-                  font-weight: bold;
-                  
-                }
-                p{
-                  color: $colorD;
-                  line-height: 13px;
-                  margin: 6px auto 13px;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+    }    
   }
 }
 </style>

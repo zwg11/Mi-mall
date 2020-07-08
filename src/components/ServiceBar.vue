@@ -22,10 +22,14 @@
     color:#666666;
     font-size:16px;
     li{
+      box-sizing: border-box;
       display:inline-block;
-      width:24.9%;
+      width:25%;
       text-align:center;
       border-right:1px solid #E5E5E5;
+      &:last-child{
+        border-right: none;
+      }
       span{
         display:inline-block;
         width:20px;

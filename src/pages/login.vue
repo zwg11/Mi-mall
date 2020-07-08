@@ -19,7 +19,7 @@
             <a href="javascript:;" class="btn" @click="login">登录</a>
           </div>
           <div class="tips">
-            <div class="sms" @click="register">手机短信登录/注册</div>
+            <div class="sms" @click="register" >手机短信登录/注册</div>
             <div class="reg">立即注册<span>|</span>忘记密码？</div>
           </div>
         </div>
@@ -46,6 +46,12 @@
         userId:'',
       }
     },
+    mounted(){
+      this.$on('hook:beforeDestroy', () => {
+        console.log('use hook listen before distroy hook');
+        
+      })
+    },
     methods:{
       login(){
         let {username, password} = this;
@@ -53,10 +59,20 @@
           username,
           password
         }).then((res)=>{
-          // this.$cookie.set('userId', res.id, {pxpires: 'Session'});
+          console.log(res);
+          
+          this.$cookie.set('userId', res.id, {pxpires: 'Session'});
           this.$store.commit('userLogin', {username: res.username})
-          this.$router.push('/index');
+          this.$router.push({
+            name:'index',
+            params:{
+              from:'login'
+            }
+          });
 
+        }).catch(err=>{
+          console.log(err);
+          
         })
         console.log('login');
 

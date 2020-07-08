@@ -2,7 +2,7 @@
     <div class="product">
         <product-param :title='title'>
             <template v-slot:buy>
-                <button class="btn" @click='buy'>立即购买</button>
+                <button class="btn-large" @click='buy'>立即购买</button>
             </template>
         </product-param>
         <div class="content">

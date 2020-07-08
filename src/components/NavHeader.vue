@@ -13,7 +13,7 @@
           <a href="javascript:;" v-if="!isLogin" @click="userLogin">登录</a>
           <a href="javascript:;" v-if="isLogin" @click="userLogout">退出</a>
           <a href="/#/order/list" v-if="isLogin">我的订单</a>
-          <a href="javascript:;" class="my-cart">
+          <a href="javascript:;" class="my-cart" @click="cart">
             <span class="icon-cart"></span>购物车({{cartCount}})
           </a>
         </div>
@@ -73,14 +73,12 @@
   </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
   name: "nav-header",
   data() {
     return {
-      username: "",
-      isLogin: false,
       phoneList: [],
-      cartCount: 0,
       tvList:[
           {
               id:111,
@@ -127,6 +125,9 @@ export default {
       ]
     };
   },
+  computed:{
+    ...mapState(['username','cartCount','isLogin'])
+  },
   filters: {
     currentcy(val) {
       if (!val)return "0.00";
@@ -136,25 +137,26 @@ export default {
   mounted() {
     
     this.getProductList();
-    this.username = this.$store.getters.getUsername || '登录'
-    this.isLogin = this.$store.state.isLogin
-    
+    let params = this.$route.params
+    if(params && params.from==='login'){
+      this.getCartCount()
+    }
   },
   watch:{
 
   },
   methods: {
     userLogin(){
-      if(this.$store.state.isLogin === false){
-        this.login()
-      }
+      this.login() 
     },
     userLogout(){
-      if(this.isLogin){
+      this.axios.post('/user/logout').then(()=>{
+        this.$message.success('退出成功')
         this.isLogin = false;
-        this.username = '登录'
-        this.$store.commit('userLogout')
-      }
+  
+        this.$store.dispatch('userLogout')
+        this.$cookie.set('userId','',{expires:'-1'});
+      })
     },
     login() {
       this.$router.push("/login");
@@ -173,6 +175,11 @@ export default {
     },
     cart() {
       this.$router.push("/cart");
+    },
+    getCartCount(){
+      this.axios.get('/carts/products/sum').then((res=0)=>{
+        this.$store.dispatch('saveCartCount',res)
+      })
     }
   }
 };
@@ -197,7 +204,7 @@ export default {
         margin-right: 17px;
       }
       .my-cart {
-        width: 110px;
+        width: 130px;
         background-color: #ff6600;
         text-align: center;
         color: #fff;
