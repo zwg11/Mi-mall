@@ -29,10 +29,10 @@ export default {
 }
 </script>
 <style lang="scss">
-
+@import "./../assets/scss/config.scss";
     .order-header{
         padding: 30px 0;
-        
+        border-bottom: 2px solid #FF6600;;
         .header-logo{
             float: left;
         }
@@ -44,7 +44,7 @@ export default {
         .title{
             font-size: 26px;
             float: left;
-            margin-left: 10px;
+            margin-left: 20px;
             color: #333333;
             span{
                 font-size: 14px;

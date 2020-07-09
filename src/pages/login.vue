@@ -62,7 +62,7 @@
           console.log(res);
           
           this.$cookie.set('userId', res.id, {pxpires: 'Session'});
-          this.$store.commit('userLogin', {username: res.username})
+          this.$store.commit('userLogin', res.username)
           this.$router.push({
             name:'index',
             params:{

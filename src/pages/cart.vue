@@ -107,6 +107,7 @@
           selected
         }).then((res)=>{
           this.renderData(res);
+
         })
       },
       // 删除购物车商品
@@ -129,6 +130,7 @@
         this.allChecked = res.selectedAll;
         this.cartTotalPrice = res.cartTotalPrice;
         this.checkedNum = this.list.filter(item=>item.productSelected).length;
+        this.$store.dispatch('saveCartCount',this.checkedNum)
       },
       // 购物车下单
       order(){
@@ -144,8 +146,19 @@
 </script>
 <style lang="scss">
   .cart{
+    position: relative;
     min-height: 100vh;
-    
+    padding-bottom: 330px;
+    box-sizing: border-box;
+    .footer,.service{
+      position: absolute;
+    }
+    .footer{
+      bottom: 0%;
+    }
+    .service{
+      bottom: 240px;
+    }
     .wrapper{
       background-color:#F5F5F5;
       padding-top:30px;

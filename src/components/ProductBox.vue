@@ -45,6 +45,7 @@ export default {
       }).then(res=>{
         console.log(res);
         this.$emit('showModal')
+        this.$store.dispatch('saveCartCount',res.cartTotalQuantity)
         
       }).catch(res=>{
         console.log(res);

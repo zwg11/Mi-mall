@@ -152,7 +152,6 @@ export default {
     userLogout(){
       this.axios.post('/user/logout').then(()=>{
         this.$message.success('退出成功')
-        this.isLogin = false;
   
         this.$store.dispatch('userLogout')
         this.$cookie.set('userId','',{expires:'-1'});
@@ -171,6 +170,8 @@ export default {
         })
         .then(res => {
           this.phoneList = res.list;
+        }).catch(()=>{
+          this.$message.warning('加载商品列表失败')
         });
     },
     cart() {
