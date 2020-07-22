@@ -18,6 +18,7 @@
 <style lang="scss" scoped>
   @import './../assets/scss/mixin.scss';
   .service{
+    margin: 0 auto;
     padding:33px 0;
     color:#666666;
     font-size:16px;

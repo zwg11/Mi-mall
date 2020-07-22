@@ -28,7 +28,7 @@
                     <swiper-slide><img src="/imgs/product/gallery-5.jpg" alt=""></swiper-slide>
                     <swiper-slide><img src="/imgs/product/gallery-6.jpg" alt=""></swiper-slide>
                     <!-- Optional controls -->
-                    <div class="swiper-pagination"  slot="pagination"></div>
+                    <div class="swiper-pagination" slot="pagination"></div>
                 </swiper>
             </div>
             
@@ -58,7 +58,7 @@
 <script>
 import ProductParam from '@/components/ProductParam'
 import {Swiper, SwiperSlide} from 'vue-awesome-swiper'
-// import 'swiper/css/swiper.css'
+import 'swiper/css/swiper.css'
 export default {
     name: 'Product',
     components:{
@@ -158,7 +158,7 @@ export default {
             .item-bg-3{
                 background:url(/imgs/product/product-bg-3.png) no-repeat center;
                 height:638px;
-                background-size:cover;
+                background-size:contain;
             }
             .item-swiper{
                 margin:36px auto 52px;
